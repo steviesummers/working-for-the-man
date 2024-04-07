@@ -2,6 +2,30 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+    function saveEvent(event) {
+        const block = $(this).closest('.time-block');
+        const description = block.find('.description').val();
+        localStorage.setItem(block.attr('id'), description);
+    }
+
+    $('.saveBtn').on('click', saveEvent);
+
+    function updateTimeBlocks() {
+        const currentHour = dayjs().hour();
+
+        $('.time-block').each(function() {
+            const blockHour = parseInt($(this).attr('id').split('-')[1]);
+
+            if (blockHour < currentHour) {
+                $(this).removeClass('present future').addClass('past');
+            } else if (blockHour === currentHour) {
+                $(this).removeClass('past future').addClass('past');
+            } else {
+                $(this).removeClass('past present').addClass('future');
+            }
+        });
+    }
+    
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
