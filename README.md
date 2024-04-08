@@ -1,1 +1,2 @@
 # working-for-the-man
+This application is called "Working for the Man" and is a calendar application used to track daily tasks in a typical '9-5' type environment. You can add a task for the day in a time slot and save or delete the item as needed. The color of the box will change based on if the hour has passed, the hour is present, or the hour is in the future. The current day is displayed to make sure your record keeping has all pecessary details for your reference.
