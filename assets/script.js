@@ -2,7 +2,10 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
-    function saveEvent(event) {
+   
+
+
+   function saveEvent(event) {
         const block = $(this).closest('.time-block');
         const description = block.find('.description').val();
         localStorage.setItem(block.attr('id'), description);
@@ -39,7 +42,37 @@ $(function () {
         const currentDate = dayjs().format('dddd, MMMM D');
         $('#currentDay').text(currentDate);
     }
+    function createTimeBlocks() {
+        const container = document.querySelector('.container-lg');
+    
+        for (let i = 9; i <= 17; i++) {
+            const timeBlock = document.createElement('div');
+            timeBlock.classList.add('row', 'time-block');
+            timeBlock.id = `hour-${i}`;
+    
+            const hourDiv = document.createElement('div');
+            hourDiv.classList.add('col-2', 'col-md-1', 'hour', 'text-center', 'py-3');
+            hourDiv.textContent = (i % 12 === 0 ? 12 : i % 12) + (i >= 12 ? 'PM' : 'AM');
+    
+            const textarea = document.createElement('textarea');
+            textarea.classList.add('col-8', 'col-md-10', 'description');
+            textarea.rows = 3;
+    
+            const saveBtn = document.createElement('button');
+            saveBtn.classList.add('btn', 'saveBtn', 'col-2', 'col-md-1');
+            saveBtn.setAttribute('aria-label', 'save');
+            saveBtn.innerHTML = '<i class="fas fa-save" aria-hidden="true"></i>';
+    
+            timeBlock.appendChild(hourDiv);
+            timeBlock.appendChild(textarea);
+            timeBlock.appendChild(saveBtn);
+    
+            container.appendChild(timeBlock);
+        }
+    }
+    
     displayCurrentDay();
+    createTimeBlocks();
     updateTimeBlocks();
     loadEvents();
 
